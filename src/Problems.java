@@ -164,36 +164,72 @@ public class Problems {
         return false;
     }
     public static boolean existsPairWithSumBinarySearch(final int[] values, final int target) {
-
+        System.out.println("Sorted Binary Search Method");
         int[] ourValues = values.clone();
-        int arrSize = ourValues.length;
-        int i = 0;                          //lower bound index
-        int j = arrSize - 1;                //upper bound index
-        int m = (i + j) / 2;
+        int arrLength = ourValues.length;
+        Arrays.sort(ourValues);
+        System.out.println("Target Sum: " + target);
+        int i;                                                  //index iteration variable
+        int r;                                                  //upper bound index
+        int l;                                                  //lower bound index
+        int m;                                                  //middle index
+        int binTarget;                                          //number we are bin-searching for
+        long tries = 0;
 
-
-        while (i < j) {
+        for (i = 0; i < arrLength - 1; i++) {                   //iterate through the array, bottom to top
+            binTarget = target - ourValues[i];                  //looking for the number that sums with the value @ i to = target
+            r = arrLength - 1;                                  //upper bound index
+            l = i;                                              //lower bound index
+            m = (l + r)/2;                                      //middle index
+            while (l < r) {                                     //as long as we haven't met or crossed index bounds
+                if (ourValues[m] > binTarget){
+                    r = m - 1;                                  //upper bound index to 1 less than middle
+                    m = (l + r)/2;                              //now calc the new middle
+                    tries++;
+                } else if (ourValues[m] < binTarget) {
+                    l = m + 1;                                  //lower bound index to 1 more than middle
+                    m = (l + r)/2;                              //now calc the new middle
+                    tries++;
+                } else if (ourValues[m] == binTarget) {
+                    //found our number
+                    tries++;
+                    System.out.println("We found a sum: " + ourValues[i] + " + " + ourValues[m] + " = " + target);
+                    System.out.println("It took " + tries + " tries out of " + arrLength + " numbers.");
+                    System.out.println("");
+                    return true;
+                }
+            }
 
         }
+        System.out.println(tries + " tries attempted with no match out of " + arrLength + " numbers.");
+        System.out.println("");
+        return false;
+    }
+
+    public static boolean existsPairWithSumHashTable(final int[] values, final int target) {
+        System.out.println("Hash Table Search Method");
+        int[] ourValues = values.clone();
+        int arrLength = ourValues.length;
+        Arrays.sort(ourValues);
+        System.out.println("Target Sum: " + target);
 
         return false;
     }
 
 
-
-    /**
-     * PROBLEM 2:
-     *
-     * Given an input list of list of elements return all combinations of innermost elements that can be constructed
-     * by taking one element from each list.
-     *
-     * Example input: {{1, 2, 3}, {4}, {5, 5}, {6, 7}}
-     * Example output: {{1, 4, 5, 6}, {1, 4, 5, 7}, {1, 4, 5, 6}, {1, 4, 5, 7}, {2, 4, 5, 6}, {2, 4, 5, 7} ...}
-     *
-     * Write test(s)
-     * There are follow up questions/work for this as well
-     */
-    public static <T> Iterable<List<T>> getAllCombinations(final List<List<T>> inputLists) {
-        return Collections.emptyList();
+        /**
+         * PROBLEM 2:
+         *
+         * Given an input list of list of elements return all combinations of innermost elements that can be constructed
+         * by taking one element from each list.
+         *
+         * Example input: {{1, 2, 3}, {4}, {5, 5}, {6, 7}}
+         * Example output: {{1, 4, 5, 6}, {1, 4, 5, 7}, {1, 4, 5, 6}, {1, 4, 5, 7}, {2, 4, 5, 6}, {2, 4, 5, 7} ...}
+         *
+         * Write test(s)
+         * There are follow up questions/work for this as well
+         */
+        public static <T > Iterable < List < T >> getAllCombinations( final List<List<T>> inputLists){
+            return Collections.emptyList();
+        }
     }
-}
